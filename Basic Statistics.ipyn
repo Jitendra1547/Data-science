@@ -1,0 +1,523 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 45,
+   "id": "e8e5e79a",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "import numpy as np\n",
+    "import matplotlib.pyplot as plt\n",
+    "import seaborn as sns\n",
+    "\n",
+    "import statistics\n",
+    "\n",
+    "\n",
+    "import aws_connection\n",
+    "sw = aws_connection.get_connection()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "cc11fbcd",
+   "metadata": {},
+   "source": [
+    "### Mean, Mode and Median"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "id": "98facebe",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import statistics\n",
+    "\n",
+    "data = [23, 45, 67, 89, 23, 80, 67, 23,80,  90, 45, 70, 80, 80,80 ]\n",
+    "mean = statistics.mean(data)\n",
+    "median = statistics.median(data)\n",
+    "mode = statistics.mode(data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "id": "295a9d8c",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(62.8, 70, 80)"
+      ]
+     },
+     "execution_count": 36,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mean, median, mode"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 37,
+   "id": "3bfdce7d",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df = pd.DataFrame(data)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 42,
+   "id": "e6ac4eae",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>0</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>23</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>45</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>67</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>89</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>23</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    0\n",
+       "0  23\n",
+       "1  45\n",
+       "2  67\n",
+       "3  89\n",
+       "4  23"
+      ]
+     },
+     "execution_count": 42,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "df.head()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 39,
+   "id": "2a393305",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "mode = df.mode()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 40,
+   "id": "79f2ae71",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>0</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>80</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    0\n",
+       "0  80"
+      ]
+     },
+     "execution_count": 40,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "mode"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1c56f0aa",
+   "metadata": {},
+   "source": [
+    "### Variance and Std Deviation\n",
+    "Standard deviation represents the magnitude of how far the data points are from the mean. A low value of standard deviation is an indication of the data being close to the mean, and a high value indicates that the data is spread to extreme ends, far away from the mean.\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "id": "65d75cb9",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Variance: 558.56\n",
+      "Std Deviation: 23.633873994755916\n"
+     ]
+    }
+   ],
+   "source": [
+    "variance = np.var(data)\n",
+    "std_deviation = np.std(data)\n",
+    "\n",
+    "print(\"Variance:\", variance)\n",
+    "print(\"Std Deviation:\", std_deviation)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "757af98c",
+   "metadata": {},
+   "source": [
+    "### Correlation"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 51,
+   "id": "f72e1bce",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Correlation Coefficient: 1.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "data1 = [2, 4, 6, 8, 10,12]\n",
+    "data2 = [3, 6, 9, 12, 15,18]\n",
+    "\n",
+    "correlation = np.corrcoef(data1, data2)[0,1]\n",
+    "print(\"Correlation Coefficient:\", correlation)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "7df88b37",
+   "metadata": {},
+   "source": [
+    "### Random sample from Normal Distribution"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 73,
+   "id": "34c75547",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Random Sample: [-1.14544134e+00  1.31583586e+00 -7.00104329e-01  1.00093100e+00\n",
+      "  2.64229545e+00 -8.00103126e-01  8.19833353e-01  7.84734268e-01\n",
+      " -7.52504310e-01  6.28816668e-02 -1.20541328e+00 -7.81497375e-01\n",
+      "  1.01606084e+00 -6.68350326e-01  3.08606262e-01  5.90915776e-01\n",
+      " -1.21060164e+00  3.62297360e-01  6.71551057e-01 -1.09979066e+00\n",
+      "  1.53346706e+00 -3.93182547e-01  1.46619795e+00 -7.57190960e-01\n",
+      "  6.41012177e-02  8.95520316e-01 -3.36070641e-01  2.42684720e-01\n",
+      "  5.38642518e-01  5.39064354e-01  8.41285755e-01 -1.00732226e+00\n",
+      " -1.49152063e+00 -8.87621266e-03  1.06401135e+00  1.19647278e+00\n",
+      " -6.75986650e-01  1.12423844e+00  8.50552566e-01 -6.92607036e-01\n",
+      " -1.17460113e-01 -1.54159654e+00 -1.02052110e+00 -1.14848598e+00\n",
+      " -1.70753867e+00 -3.79358576e-01  8.54214362e-01  4.43309512e-01\n",
+      " -6.47441496e-01 -2.20672465e-03]\n"
+     ]
+    }
+   ],
+   "source": [
+    "sample = np.random.normal(0, 1, size=50)\n",
+    "print(\"Random Sample:\", sample)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 74,
+   "id": "e61c3578",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "0.01877066539661359\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(sample.mean())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 77,
+   "id": "6a1e6dd2",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "StatisticsError",
+     "evalue": "no unique mode; found 50 equally common values",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mStatisticsError\u001b[0m                           Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-77-3376a1fc7e18>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0mmedian\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mstatistics\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmedian\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0msample\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0mmodde\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mstatistics\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mmode\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0msample\u001b[0m\u001b[0;34m)\u001b[0m  \u001b[0;31m# could not fins bcz all 50 records are unique\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m~/anaconda3/envs/python3/lib/python3.6/statistics.py\u001b[0m in \u001b[0;36mmode\u001b[0;34m(data)\u001b[0m\n\u001b[1;32m    505\u001b[0m     \u001b[0;32melif\u001b[0m \u001b[0mtable\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    506\u001b[0m         raise StatisticsError(\n\u001b[0;32m--> 507\u001b[0;31m                 \u001b[0;34m'no unique mode; found %d equally common values'\u001b[0m \u001b[0;34m%\u001b[0m \u001b[0mlen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mtable\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    508\u001b[0m                 )\n\u001b[1;32m    509\u001b[0m     \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mStatisticsError\u001b[0m: no unique mode; found 50 equally common values"
+     ]
+    }
+   ],
+   "source": [
+    "median = statistics.median(sample)\n",
+    "modde = statistics.mode(sample)  # could not fins bcz all 50 records are unique"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 76,
+   "id": "5df50c9a",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "0.030337471059106034"
+      ]
+     },
+     "execution_count": 76,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "median"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "3bdb72bb",
+   "metadata": {},
+   "source": [
+    "### Five Number Summary(Box Plot)\n",
+    "The five-number summary is a measure of five entities that cover the entire range of data as shown below:\n",
+    "\n",
+    "Low extreme (Min)\n",
+    "\n",
+    "First quartile (Q1)\n",
+    "\n",
+    "Median\n",
+    "\n",
+    "Upper quartile (Q3)\n",
+    "\n",
+    "High extreme (Max)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 80,
+   "id": "5529c211",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Minimum: 5\n",
+      "Q1: 12.75\n",
+      "Median: 18.0\n",
+      "Q3: 29.5\n",
+      "Maximum: 50\n"
+     ]
+    }
+   ],
+   "source": [
+    "import numpy as np\n",
+    "\n",
+    "data = [10, 15, 18, 23, 28, 18, 15, 12, 10, 30, 32, 39, 50, 5]\n",
+    "\n",
+    "minimum = np.min(data)\n",
+    "q1 = np.percentile(data, 25)\n",
+    "median = np.median(data)\n",
+    "q3 = np.percentile(data, 75)\n",
+    "maximum = np.max(data)\n",
+    "\n",
+    "print(\"Minimum:\", minimum)\n",
+    "print(\"Q1:\", q1)  #  25% data points lies below the value or 75 % data points lies above the value\n",
+    "print(\"Median:\", median)\n",
+    "print(\"Q3:\", q3) #  75% data points lies below the value or 25 % data points lies above the value\n",
+    "print(\"Maximum:\", maximum)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 84,
+   "id": "af051613",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "18.0"
+      ]
+     },
+     "execution_count": 84,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "q2 = q1 = np.percentile(data, 50)\n",
+    "q2\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 94,
+   "id": "442e8415",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "\n",
+    "μ= 160  # mean\n",
+    "Z= 1.2 # Z- score\n",
+    "σ = 15 #  std deviation\n",
+    "\n",
+    "X = μ +( Z*σ)\n",
+    "\n",
+    "\n",
+    "\n",
+    "#Therefore, X = 160 + (15*1.2) = 173.8 (Approximated to 174)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 92,
+   "id": "38a28076",
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "178.0"
+      ]
+     },
+     "execution_count": 92,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "X"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "2cb7289b",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "conda_python3",
+   "language": "python",
+   "name": "conda_python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.13"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
